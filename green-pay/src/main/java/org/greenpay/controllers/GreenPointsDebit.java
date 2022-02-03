@@ -12,14 +12,14 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.HttpClientErrorException;
 
 
-@RestController("/green-pay/debit")
+@RestController
 public class GreenPointsDebit {
 
     @Autowired
     private GreenPointsDebitService greenPointsDebitService;
 
-    @PostMapping("/")
-    public Either<AccountBasicInfo, HttpClientErrorException> getAccountBalance(
+    @PostMapping("/green-pay/debit/")
+    public Either<AccountBasicInfo, HttpClientErrorException> performAccountDebit(
             @RequestBody DebitAmountRequest debitAmountRequest){
         return debitAmountRequest.getDebit_type().equalsIgnoreCase("currency")?
                 Either.left(greenPointsDebitService.debitAmountFromMainBalance()):
